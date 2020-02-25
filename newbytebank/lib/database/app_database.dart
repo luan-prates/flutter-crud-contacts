@@ -1,7 +1,5 @@
 import 'package:newbytebank/models/contact.dart';
-
 import 'dart:async';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
