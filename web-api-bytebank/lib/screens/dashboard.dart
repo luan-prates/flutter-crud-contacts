@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newbytebank/screens/contacts_list.dart';
 import 'package:newbytebank/screens/contacts_list_transf.dart';
+import 'package:newbytebank/screens/transactions_list.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -35,7 +36,7 @@ class Dashboard extends StatelessWidget {
                 _FeatureItem(
                   name: 'Feed',
                   icon: Icons.description,
-                  onClick: () => print('Clicou em feed'),
+                  onClick: () => _showTransactionsList(context),
                 ),
               ],
             ),
@@ -44,8 +45,15 @@ class Dashboard extends StatelessWidget {
       ),
     );
   }
-}
 
+ void _showTransactionsList(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TransactionsList(),
+      ),
+    );
+  }
+}
 
 void _showContactsList(BuildContext context){
   Navigator.of(context).push(
@@ -63,7 +71,6 @@ void _showContactsListTransf(BuildContext context){
   );
 }
 
-
 class _FeatureItem extends StatelessWidget {
   final String name;
   final IconData icon;
@@ -71,7 +78,13 @@ class _FeatureItem extends StatelessWidget {
 
   _FeatureItem({Key key, this.name, this.icon, this.onClick}) : super(key: key);
 
- // _FeatureItem(this.name, this.icon, {@required this.onClick});
+// Sugerido no curso, mas não funciona.
+//  _FeatureItem(
+//      this.name,
+//      this.icon, {
+//        @required this.onClick,
+//      })  : assert(icon != null),
+//        assert(onClick != null);
 
   @override
   Widget build(BuildContext context) {
