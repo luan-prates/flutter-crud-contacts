@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newbytebank/api/webclient.dart';
+import 'package:newbytebank/components/progress.dart';
 import 'package:newbytebank/models/transaction.dart';
 
 class TransactionsList extends StatelessWidget {
@@ -16,7 +17,7 @@ class TransactionsList extends StatelessWidget {
               case ConnectionState.none:
                 break;
               case ConnectionState.waiting:
-
+                return Progress();
                 break;
               case ConnectionState.active:
                 break;
