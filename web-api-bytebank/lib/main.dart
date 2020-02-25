@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:newbytebank/api/webclient.dart';
 import 'package:newbytebank/screens/dashboard.dart';
 
 void main() {
   runApp(Newbytebank());
+  findAll().then((transactions) => print('new transactions $transactions'));
 }
 
 class Newbytebank extends StatelessWidget {
