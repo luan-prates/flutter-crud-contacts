@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newbytebank/database/app_database.dart';
 import 'package:newbytebank/screens/dashboard.dart';
-
 
 void main() {
   runApp(Newbytebank());
