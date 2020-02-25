@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newbytebank/models/contact.dart';
+import 'package:newbytebank/models/transaction.dart';
 
 class TransactionsList extends StatelessWidget {
   final List<Transaction> transactions = List();
@@ -36,20 +38,4 @@ class TransactionsList extends StatelessWidget {
       ),
     );
   }
-}
-
-class Transaction {
-  final double value;
-  final Contact contact;
-
-  Transaction(
-    this.value,
-    this.contact,
-  );
-
-  @override
-  String toString() {
-    return 'Transaction{value: $value, contact: $contact}';
-  }
-
 }
