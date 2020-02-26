@@ -31,7 +31,8 @@ Future<List<Transaction>> findAll() async {
     LoggingInterceptor(),
   ]);
   final Response response =
-      await client.get('http://172.17.174.193:8080/transactions');
+      await client.get('https://6e311a19.ngrok.io/transactions').timeout(Duration(seconds: 10));
+//      await client.get('http://172.17.174.193:8080/transactions');
   final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = List();
   for (Map<String, dynamic> transactionJson in decodedJson) {
