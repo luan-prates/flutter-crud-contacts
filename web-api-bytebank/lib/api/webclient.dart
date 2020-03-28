@@ -30,19 +30,17 @@ final client = HttpWithInterceptor.build(interceptors: [
   LoggingInterceptor(),
 ]);
 
-const String TransactionBaseUrl = 'http://172.17.174.193:8091/transactions';
-const String TransactionBaseUrlNgrok = 'https://3db62739.ngrok.io:8091/transactions';
+const String TransactionBaseUrl = 'http://192.168.139.145:8081/transactions';
+const String TransactionBaseUrlNgrok = 'https://3b2c62f1.ngrok.io/transactions';
 
 Future<List<Transaction>> findAll() async {
-
   final Response response =
-//      await client.get('https://6e311a19.ngrok.io/transactions').timeout(Duration(seconds: 10));
-      await client.get(TransactionBaseUrl);
+      await client.get(TransactionBaseUrl).timeout(Duration(seconds: 5));
   final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = List();
   for (Map<String, dynamic> transactionJson in decodedJson) {
     final Map<String, dynamic> contactJson = transactionJson['contact'];
-    final Transaction  transaction = Transaction(
+    final Transaction transaction = Transaction(
       transactionJson['value'],
       Contact(
         0,
@@ -55,6 +53,33 @@ Future<List<Transaction>> findAll() async {
   return transactions;
 }
 
-void  save(Transaction transaction){
-  client.post(url)
+Future<Transaction> save(Transaction transaction) async {
+  final Map<String, dynamic> transactonMap = {
+    'value': transaction.value,
+    'contact': {
+      'name': transaction.contact.name,
+      'accountNumber': transaction.contact.accountNumber,
+    }
+  };
+
+  final String transactionJson = jsonEncode(transactonMap);
+
+  final Response response = await client.post(
+    TransactionBaseUrl,
+    headers: {
+      'Content-type': 'application/json',
+      'password': '1000',
+    }, body: transactionJson);
+
+  Map<String, dynamic> jsonTransactionResponse = jsonDecode(response.body);
+  final Map<String, dynamic> contactJson = jsonTransactionResponse['contact'];
+  final Transaction transactionResponse = Transaction(
+    jsonTransactionResponse['value'],
+    Contact(
+      0,
+      contactJson['name'],
+      contactJson['accountNumber'],
+    ),
+  );
+  return transactionResponse;
 }
